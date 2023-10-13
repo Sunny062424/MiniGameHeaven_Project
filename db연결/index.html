@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style media="screen">
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      padding: 20px;
+    }
+
+    .card {
+    background-color: #fff;
+    border: 2px solid #ddd; /* Add border style */
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+  }
+
+
+    .card-header h3 {
+      font-size: 18px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .card-content {
+      margin: 10px 0;
+    }
+
+    .card-actions {
+      margin-top: 20px;
+    }
+
+    #btn {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn1" class="">A입장</button>
+  <button id="btn2" class="">B입장</button>
+
+</body>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script>
+    let savedNickname='';
+    fetch('/api/getNickname')
+      .then(response => response.json())
+      .then(data => {
+         savedNickname = data.nickname;
+        console.log("서버에서 받은 닉네임2:", savedNickname);
+      })
+      .catch(error => {
+        console.error('데이터 가져오기 중 오류 발생:', error);
+      });
+
+  $(document).on("click","#btn1", function () {
+    console.log("button");
+      var selectedCard = $(".card.selected");
+      var no = $(this).attr("class");
+console.log(no);
+          location.href = `http://localhost:5173/snake-vue3/nickname=${savedNickname}`;
+    });
+
+
+      $(document).on("click","#btn2", function () {
+        console.log("button");
+          var selectedCard = $(".card.selected");
+          var no = $(this).attr("class");
+    console.log(no);
+              location.href = `http://localhost/order?no=${no}`;
+        });
+</script>
+</html>
